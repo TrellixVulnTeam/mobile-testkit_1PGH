@@ -41,6 +41,7 @@ export PATH=$PATH:/usr/local/bin
 virtualenv -p $PYTHON venv
 source venv/bin/activate
 $PIP uninstall -y enum34
+$PIP install ez_setup
 
 # Install PYTHON dependencies
 $PIP install -r requirements.txt
