@@ -42,6 +42,7 @@ virtualenv -p $PYTHON venv
 source venv/bin/activate
 $PIP uninstall -y enum34
 $PIP install ez_setup
+$PIP install --upgrade pyls -i https://pypi.python.org/simple
 
 # Install PYTHON dependencies
 $PIP install -r requirements.txt
