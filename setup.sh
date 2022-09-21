@@ -40,6 +40,7 @@ export PATH=$PATH:/usr/local/bin
 # Setup virtual env
 virtualenv -p $PYTHON venv
 source venv/bin/activate
+$PIP uninstall -y enum34
 
 # Install PYTHON dependencies
 $PIP install -r requirements.txt
