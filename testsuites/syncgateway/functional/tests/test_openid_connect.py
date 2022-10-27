@@ -89,7 +89,7 @@ def discover_authenticate_endpoint(sg_url, sg_db, provider, ipv6, session=None):
 
     # the Www-Authenticate header will look something like this:
     # 'OIDC login="http://localhost:4984/db/_oidc_testing/authorize?client_id=sync_gateway&redirect_uri=http%3A%2F%2Flocalhost%3A4984%2Fdb%2F_oidc_callback&response_type=code&scope=openid+email&state="'
-    print("++++++++++++++++++++++++++++++++++++++++++++RESPONSE HEADERS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++") 
+    print("++++++++++++++++++++++++++++++++++++++++++++RESPONSE HEADERS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
     print(response.headers)
     print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
     www_auth_header = response.headers['Www-Authenticate']
