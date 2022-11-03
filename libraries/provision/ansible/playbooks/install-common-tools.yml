@@ -59,7 +59,7 @@
 
   - name: DEPS | install python3-devel
     yum: pkg=python3-devel state=latest
-    when: ansible_os_family == "CentOS" and ansible_distribution_major_version >= "8.0"
+    when: ansible_os_family == "CentOS"
 
   - name: DEPS | install python-pip
     yum: pkg=python-pip state=latest
