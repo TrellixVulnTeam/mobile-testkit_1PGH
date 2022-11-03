@@ -116,7 +116,7 @@ class SyncGateway:
                 playbook_vars["sslkey"] = '"SSLKey": "sg_privkey.pem",'
 
             if get_sg_version(self.cluster_config) >= "2.1.0":
-                logging_config = '"logging": {"console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
+                logging_config = '"logging": {"log_file_path": "/tmp", "console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
                 try:
                     redact_level = get_redact_level(self.cluster_config)
                     playbook_vars["logging"] = '{}, "redaction_level": "{}" {},'.format(logging_config, redact_level, "}")
@@ -273,7 +273,7 @@ class SyncGateway:
                 playbook_vars["sslkey"] = '"SSLKey": "sg_privkey.pem",'
 
             if get_sg_version(cluster_config) >= "2.1.0":
-                logging_config = '"logging": {"console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
+                logging_config = '"logging": {"log_file_path": "/tmp", "console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
                 try:
                     redact_level = get_redact_level(cluster_config)
                     playbook_vars["logging"] = '{}, "redaction_level": "{}" {},'.format(logging_config, redact_level, "}")
@@ -789,7 +789,7 @@ def setup_sgwconfig_db_config(cluster_config, sg_config_path, use_config=False):
 
     sg_platform = get_sg_platform(cluster_config)
 
-    logging_config = '"logging": {"console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
+    logging_config = '"logging": {"log_file_path": "/tmp", "console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
     try:
         redact_level = get_redact_level(cluster_config)
         logging_var = '{}, "redaction_level": "{}" {},'.format(logging_config, redact_level, "}")

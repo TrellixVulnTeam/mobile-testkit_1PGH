@@ -73,7 +73,7 @@ class SgAccel:
         }
 
         if get_sg_version(self.cluster_config) >= "2.1.0":
-            logging_config = '"logging": {"console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
+            logging_config = '"logging": {"log_file_path": "/tmp", "console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
             try:
                 redact_level = get_redact_level(self.cluster_config)
                 playbook_vars["logging"] = '{}, "redaction_level": "{}" {},'.format(logging_config, redact_level, "}")
