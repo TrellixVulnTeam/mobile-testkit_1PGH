@@ -220,7 +220,7 @@ class Cluster:
 
             sg_platform = get_sg_platform(self._cluster_config)
             if get_sg_version(self._cluster_config) >= "2.1.0":
-                logging_config = '"logging": {"debug": {"enabled": true}'
+                logging_config = '"logging": {"console": {"log-level": "trace"}, {"debug": {"enabled": true}}, {"trace": {"enabled": true}}}'
                 try:
                     redact_level = get_redact_level(self._cluster_config)
                     playbook_vars["logging"] = '{}, "redaction_level": "{}" {},'.format(logging_config, redact_level, "}")
@@ -454,7 +454,7 @@ class Cluster:
 
         sg_platform = get_sg_platform(self._cluster_config)
 
-        logging_config = '"logging": {"debug": {"enabled": true}'
+        logging_config = '"logging": {"console": {"log-level": "trace"}, {"debug": {"enabled": true}}, {"trace": {"enabled": true}}}'
         try:
             redact_level = get_redact_level(self._cluster_config)
             logging_var = '{}, "redaction_level": "{}" {},'.format(logging_config, redact_level, "}")
