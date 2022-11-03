@@ -278,7 +278,7 @@ def load_sync_gateway_config(sg_conf, server_url, cluster_config, sg_db_cfg=None
 
         sg_platform = get_sg_platform(cluster_config)
         if get_sg_version(cluster_config) >= "2.1.0":
-            logging_config = '"logging": {"console": {"log-level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
+            logging_config = '"logging": {"console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
             try:
                 redact_level = get_redact_level(cluster_config)
                 logging_prop = '{}, "redaction_level": "{}" {},'.format(logging_config, redact_level, "}")
@@ -501,7 +501,7 @@ class SyncGateway(object):
             }
             sg_platform = get_sg_platform(cluster_config)
             if get_sg_version(cluster_config) >= "2.1.0":
-                logging_config = '"logging": {"console": {"log-level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
+                logging_config = '"logging": {"console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
                 try:
                     redact_level = get_redact_level(cluster_config)
                     playbook_vars["logging"] = '{}, "redaction_level": "{}" {},'.format(logging_config, redact_level, "}")
@@ -820,7 +820,7 @@ class SyncGateway(object):
             cbs_version, cbs_build = version_and_build(server_version)
 
             if version >= "2.1.0":
-                logging_config = '"logging": {"console": {"log-level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
+                logging_config = '"logging": {"console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
                 try:
                     redact_level = get_redact_level(cluster_config)
                     playbook_vars["logging"] = '{}, "redaction_level": "{}" {},'.format(logging_config, redact_level, "}")
@@ -1027,7 +1027,7 @@ class SyncGateway(object):
             playbook_vars["password"] = '"password": "password",'
 
             if version >= "2.1.0":
-                logging_config = '"logging": {"console": {"log-level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
+                logging_config = '"logging": {"console": {"log_level": "trace"}, "debug": {"enabled": true}, "trace": {"enabled": true}'
                 try:
                     redact_level = get_redact_level(cluster_config)
                     playbook_vars["logging"] = '{}, "redaction_level": "{}" {},'.format(logging_config, redact_level, "}")
