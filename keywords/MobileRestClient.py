@@ -2181,8 +2181,11 @@ class MobileRestClient:
 
         while True:
             logging.info(time.time() - start)
-
             if time.time() - start > CLIENT_REQUEST_TIMEOUT:
+                log_info("===========================================The remaining docs:   " + str(expected_doc_map))
+                for doc in expected_doc_map:
+                    doc_content = self.get_raw_doc(self, url, db, doc, auth)
+                    log_info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + str(doc_content))
                 raise TimeoutException("Verify Docs In Changes: TIMEOUT")
 
             resp_obj = self.get_changes(url=url, db=db, since=last_seq, auth=auth, timeout=polling_interval)
@@ -2192,24 +2195,28 @@ class MobileRestClient:
 
                 # Check changes results contain a doc in the expected docs
                 if resp_doc["id"] in expected_doc_map:
-
+                    log_info("Doc checked:" + str(expected_doc_map[resp_doc["id"]]))
                     assert resp_doc["seq"] not in sequence_number_map, "Found duplicate sequence number: {} in sequence map!!".format(resp_doc["seq"])
                     sequence_number_map[resp_doc["seq"]] = resp_doc["id"]
 
                     # If the doc is a user doc, there will be no rev, cross it out
                     if resp_doc["id"].startswith("_user/"):
                         self.verify_is_user_doc(resp_doc)
+                        log_info("DELETING1:" + str(expected_doc_map[resp_doc["id"]]))
                         del expected_doc_map[resp_doc["id"]]
 
                     # Check that the rev of the changes docs matches the expected docs rev
                     for resp_doc_change in resp_doc["changes"]:
                         if resp_doc_change["rev"] == expected_doc_map[resp_doc["id"]]:
                             # expected doc with expected revision found in changes, cross out doc from expected docs
+                            log_info("DELETING2:" + str(expected_doc_map[resp_doc["id"]]))
                             del expected_doc_map[resp_doc["id"]]
                         else:
                             # expected rev not found
+                            log_info("DIDNOTDELETE:" + str(expected_doc_map[resp_doc["id"]]))
                             logging.debug("Found doc: {} in changes but could not find expected rev")
                 else:
+                    log_info("--------------------------------------------------------------------------Expected doc=" + str(resp_doc))
                     missing_expected_docs.append(resp_doc)
 
             if strict and len(missing_expected_docs) > 0:
