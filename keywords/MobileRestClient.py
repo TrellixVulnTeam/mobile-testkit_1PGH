@@ -2184,8 +2184,11 @@ class MobileRestClient:
             if time.time() - start > CLIENT_REQUEST_TIMEOUT:
                 log_info("===========================================The remaining docs:   " + str(expected_doc_map))
                 for doc in expected_doc_map:
-                    doc_content = self.get_raw_doc(url, db, doc, auth)
-                    log_info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + str(doc_content))
+                    try:
+                        doc_content = self.get_raw_doc(url, db, doc, auth)
+                        log_info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + str(doc_content))
+                    except:
+                        pass
                 raise TimeoutException("Verify Docs In Changes: TIMEOUT")
 
             resp_obj = self.get_changes(url=url, db=db, since=last_seq, auth=auth, timeout=polling_interval)
