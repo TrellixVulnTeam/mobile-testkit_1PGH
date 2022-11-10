@@ -1458,7 +1458,8 @@ class MobileRestClient:
                 doc_id = "{}_{}".format(id_prefix, i)
 
             doc_body["_id"] = doc_id
-
+            print("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||")
+            print(doc_body)
             doc_obj = self.add_doc(url, db, doc_body, auth=auth, use_post=False, scope=scope, collection=collection)
             if attachments_generator:
                 doc_obj["attachments"] = list(doc_body["_attachments"].keys())
@@ -2191,11 +2192,9 @@ class MobileRestClient:
             for resp_doc in resp_obj["results"]:
                 if printed_doc == 0:
                     try:
-                        time.sleep(30)
                         doc_content = self.get_raw_doc(url, db, resp_doc["id"], auth)
                         log_info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + str(doc_content))
                         printed_doc = printed_doc + 1
-                        exit(1)
                     except:
                         log_info("----------------------------------------------------------------" + resp_doc["id"])
                 # Check changes results contain a doc in the expected docs
