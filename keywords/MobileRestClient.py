@@ -2190,10 +2190,12 @@ class MobileRestClient:
             missing_expected_docs = []
             for resp_doc in resp_obj["results"]:
                 if printed_doc == 0:
-                    doc_content = self.get_raw_doc(url, db, resp_doc["id"], auth)
-                    log_info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + str(doc_content))
-                    printed_doc = printed_doc + 1
-
+                    try:
+                        doc_content = self.get_raw_doc(url, db, resp_doc["id"], auth)
+                        log_info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + str(doc_content))
+                        printed_doc = printed_doc + 1
+                    except:
+                        pass
                 # Check changes results contain a doc in the expected docs
                 if resp_doc["id"] in expected_doc_map:
                     log_info("Doc checked:" + str(expected_doc_map[resp_doc["id"]]))
