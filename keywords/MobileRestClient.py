@@ -2195,7 +2195,7 @@ class MobileRestClient:
                         log_info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + str(doc_content))
                         printed_doc = printed_doc + 1
                     except:
-                        pass
+                        log_info("----------------------------------------------------------------" + resp_doc["id"])
                 # Check changes results contain a doc in the expected docs
                 if resp_doc["id"] in expected_doc_map:
                     log_info("Doc checked:" + str(expected_doc_map[resp_doc["id"]]))
