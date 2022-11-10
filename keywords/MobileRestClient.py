@@ -2191,9 +2191,11 @@ class MobileRestClient:
             for resp_doc in resp_obj["results"]:
                 if printed_doc == 0:
                     try:
+                        time.sleep(30)
                         doc_content = self.get_raw_doc(url, db, resp_doc["id"], auth)
                         log_info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + str(doc_content))
                         printed_doc = printed_doc + 1
+                        exit(1)
                     except:
                         log_info("----------------------------------------------------------------" + resp_doc["id"])
                 # Check changes results contain a doc in the expected docs
