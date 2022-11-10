@@ -2162,7 +2162,7 @@ class MobileRestClient:
 
         If strict = True, fail if any docs other that the expected docs are found while validating
         """
-        printed_doc = 0
+
         if isinstance(expected_docs, list):
             # Create single dictionary for comparison, will also blow up for duplicate docs with the same id
             expected_doc_map = {expected_doc["id"]: expected_doc["rev"] for expected_doc in expected_docs}
@@ -2178,7 +2178,7 @@ class MobileRestClient:
 
         start = time.time()
         last_seq = 0
-
+        printed_doc = 0
         while True:
             logging.info(time.time() - start)
             if time.time() - start > CLIENT_REQUEST_TIMEOUT:
@@ -2189,13 +2189,13 @@ class MobileRestClient:
 
             missing_expected_docs = []
             for resp_doc in resp_obj["results"]:
+                if printed_doc == 0:
+                    doc_content = self.get_raw_doc(url, db, resp_doc["id"], auth)
+                    log_info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + str(doc_content))
+                    printed_doc = printed_doc + 1
 
                 # Check changes results contain a doc in the expected docs
                 if resp_doc["id"] in expected_doc_map:
-                    if printed_doc == 0:
-                        doc_content = self.get_raw_doc(url, db, resp_doc["id"], auth)
-                        log_info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + str(doc_content))
-                        doc_content = doc_content + 1
                     log_info("Doc checked:" + str(expected_doc_map[resp_doc["id"]]))
                     assert resp_doc["seq"] not in sequence_number_map, "Found duplicate sequence number: {} in sequence map!!".format(resp_doc["seq"])
                     sequence_number_map[resp_doc["seq"]] = resp_doc["id"]
